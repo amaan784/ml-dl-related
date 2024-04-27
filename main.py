@@ -2,11 +2,11 @@
 from transformers import pipeline 
 
 def sentiment_analysis():
+    """
+        Classifies text as positive or negative
+    """
     # create a pipleine object and input the task - sentiment analysis
-    # works in 3 steps -
-    # 1) pre-pocessing the texts -  applies tokenizer to the model (a default model will be chosen)
-    # 2) feeds the pre processed text to the model 
-    # 3) post processing - shows results
+    # a default pre trained model will be chosen
     sa_classifier = pipeline("sentiment-analysis")
 
     # apply the classifier with the data we want to test
@@ -19,6 +19,9 @@ def sentiment_analysis():
     print(sa_2_result) # will output something like - [{'label': 'NEGATIVE', 'score': 0.9997618794441223}]
 
 def text_generation():
+   """
+        Completes the input text 
+   """
    # create a pipeline and input the task text generation with a specific model to use
    generator = pipeline("text-generation", model="distilgpt2")
 
@@ -26,8 +29,14 @@ def text_generation():
    tg_result = generator("This year I really want to win", max_length = 30, num_return_sequences=2)
 
    print(tg_result)
+   # will output something like- 
+   # [{'generated_text': 'This year I really want to win a trophy in my race for the WTAI championship, and I love the opportunity I got to face the world'}, 
+   # {'generated_text': "This year I really want to win. It should be! That's where I wanted to win the title and win this year.\n\nFor my"}]
 
 def zero_shot_classification():
+   """
+        Classifies text based on the given labels
+   """
    # create a pipeline and input the task zero shot classification
    zs_classifier = pipeline("zero-shot-classification")
 
@@ -36,14 +45,51 @@ def zero_shot_classification():
 
    print(zsc_result)
    # will output something like -
-   # {'sequence': 'I love watching movies especially bollywood ones', 'labels': ['cinema', 'entertainment', 'bussiness'], 'scores': [0.6243946552276611, 0.3563500940799713, 0.019255323335528374]}
+   # {'sequence': 'I love watching movies especially bollywood ones', 'labels': ['cinema', 'entertainment', 'bussiness'], 
+   # 'scores': [0.6243946552276611, 0.3563500940799713, 0.019255323335528374]}
   
+def fill_mask():
+    """
+        Will predict missing words in a sentence
+    """
+    # create a pipleine object and input the task - fill mask
+    unmasker = pipeline("fill-mask")
+
+    # will return 2 most likely words because of the top_k parameter
+    unmasker_result = unmasker("This course will teach you about <mask> models.", top_k=2)
+
+    print(unmasker_result) 
+    # will output something like 
+    # [{'score': 0.1989048719406128, 'token': 30412, 'token_str': ' mathematical', 'sequence': 'This course will teach you about mathematical models.'}, 
+    # {'score': 0.05367991700768471, 'token': 38163, 'token_str': ' computational', 'sequence': 'This course will teach you about computational models.'}]
+
+def ner():
+    """
+        Identifies entitites such as persons, organizations or locations in a sentence
+    """
+    # create a pipleine object and input the task - ner
+    ner = pipeline("ner", grouped_entities=True)
+
+    # will return 2 most likely words because of the top_k parameter
+    ner_result = ner("My name is Amaan and I work on Earth.")
+
+    print(ner_result) # will output something like 
+    # [{'entity_group': 'PER', 'score': 0.99865127, 'word': 'Amaan', 'start': 11, 'end': 16}, 
+    # {'entity_group': 'LOC', 'score': 0.99144495, 'word': 'Earth', 'start': 31, 'end': 36}]
+
 if __name__ == '__main__':
   print("---------Sentiment Analysis-------")
-  sentiment_analysis()
+#   sentiment_analysis()
 
   print("\n---------Text Generation------")
-  text_generation()
+#   text_generation()
 
   print("\n---------Zero Shot Classification------")
-  zero_shot_classification()
+#   zero_shot_classification()
+
+  print("\n---------Fill Mask------")
+#   fill_mask()
+
+  print("\n---------Named Entity Recognition------")
+  ner()
+
