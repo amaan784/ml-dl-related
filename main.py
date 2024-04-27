@@ -1,4 +1,4 @@
-# load huggin face transofrmers library
+# load hugging face transformers library / api
 from transformers import pipeline 
 
 def sentiment_analysis():
@@ -90,24 +90,56 @@ def question_answering():
     # will output something like 
     # {'score': 0.6659677028656006, 'start': 31, 'end': 36, 'answer': 'Earth'}
 
+def summarization():
+    """
+        Creates Summarization of text(s)
+    """
+    # create a pipleine object and input the task - summarization
+    summarizer = pipeline("summarization")
+
+    # not a good input text but can give good summaries
+    summarizer_result = summarizer("Databricks is a unified, open analytics platform for building, deploying, sharing, and maintaining enterprise-grade data, analytics, and AI solutions at scale." +
+                                   "The Databricks Data Intelligence Platform integrates with cloud storage and security in your cloud account, and manages and deploys cloud infrastructure on your behalf.")
+
+    print(summarizer_result) # not a good input text but can 
+
+def translation():
+    """
+        Translates text from one language to another
+    """
+    # create a pipleine object and input the task - translation
+    # use model for translating from French to English
+    translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+
+    translator_result = translator("je suis etudiant")
+
+    print(translator_result) 
+    # will output something like 
+    # [{'translation_text': "I'm a student."}]
+
 
 if __name__ == '__main__':
   print("---------Sentiment Analysis-------")
-#   sentiment_analysis()
+  sentiment_analysis()
 
   print("\n---------Text Generation------")
-#   text_generation()
+  text_generation()
 
   print("\n---------Zero Shot Classification------")
-#   zero_shot_classification()
+  zero_shot_classification()
 
   print("\n---------Fill Mask------")
-#   fill_mask()
+  fill_mask()
 
   print("\n---------Named Entity Recognition------")
-#   ner()
+  ner()
 
   print("\n---------Question Answering------")
-#   question_answering()
+  question_answering()
 
+  print("\n---------Summarizer------")
+  summarization()
+
+  print("\n---------Translation------")
+  translation()
 
