@@ -5,7 +5,7 @@ def sentiment_analysis():
     """
         Classifies text as positive or negative
     """
-    # create a pipleine object and input the task - sentiment analysis
+    # create a pipeline object and input the task - sentiment analysis
     # a default pre trained model will be chosen
     sa_classifier = pipeline("sentiment-analysis")
 
@@ -52,7 +52,7 @@ def fill_mask():
     """
         Will predict missing words in a sentence
     """
-    # create a pipleine object and input the task - fill mask
+    # create a pipeline object and input the task - fill mask
     unmasker = pipeline("fill-mask")
 
     # will return 2 most likely words because of the top_k parameter
@@ -67,7 +67,7 @@ def ner():
     """
         Identifies entitites such as persons, organizations or locations in a sentence
     """
-    # create a pipleine object and input the task - ner
+    # create a pipeline object and input the task - ner
     ner = pipeline("ner", grouped_entities=True)
 
     ner_result = ner("My name is Amaan and I work on Earth.")
@@ -81,7 +81,7 @@ def question_answering():
     """
         Extracts answers to a question from a given context
     """
-    # create a pipleine object and input the task - question answering
+    # create a pipeline object and input the task - question answering
     question_answerer = pipeline("question-answering")
 
     question_answerer_result = question_answerer(question = "Where do I work?", context = "My name is Amaan and I work on Earth.")
@@ -94,7 +94,7 @@ def summarization():
     """
         Creates Summarization of text(s)
     """
-    # create a pipleine object and input the task - summarization
+    # create a pipeline object and input the task - summarization
     summarizer = pipeline("summarization")
 
     # not a good input text but can give good summaries
@@ -107,7 +107,7 @@ def translation():
     """
         Translates text from one language to another
     """
-    # create a pipleine object and input the task - translation
+    # create a pipeline object and input the task - translation
     # use model for translating from French to English
     translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
 
