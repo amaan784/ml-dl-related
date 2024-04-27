@@ -70,12 +70,26 @@ def ner():
     # create a pipleine object and input the task - ner
     ner = pipeline("ner", grouped_entities=True)
 
-    # will return 2 most likely words because of the top_k parameter
     ner_result = ner("My name is Amaan and I work on Earth.")
 
-    print(ner_result) # will output something like 
+    print(ner_result) 
+    # will output something like 
     # [{'entity_group': 'PER', 'score': 0.99865127, 'word': 'Amaan', 'start': 11, 'end': 16}, 
     # {'entity_group': 'LOC', 'score': 0.99144495, 'word': 'Earth', 'start': 31, 'end': 36}]
+
+def question_answering():
+    """
+        Extracts answers to a question from a given context
+    """
+    # create a pipleine object and input the task - question answering
+    question_answerer = pipeline("question-answering")
+
+    question_answerer_result = question_answerer(question = "Where do I work?", context = "My name is Amaan and I work on Earth.")
+
+    print(question_answerer_result) 
+    # will output something like 
+    # {'score': 0.6659677028656006, 'start': 31, 'end': 36, 'answer': 'Earth'}
+
 
 if __name__ == '__main__':
   print("---------Sentiment Analysis-------")
@@ -91,5 +105,9 @@ if __name__ == '__main__':
 #   fill_mask()
 
   print("\n---------Named Entity Recognition------")
-  ner()
+#   ner()
+
+  print("\n---------Question Answering------")
+#   question_answering()
+
 
