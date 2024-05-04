@@ -1,5 +1,8 @@
 # Hugging Face
 
+- Note- 
+- A lot of storage space may be needed since the models are heavy 
+
 ## Pipeline Function-
 
 The pipeline function returns an end to end object that performs an NLP task on one or more several texts.
@@ -30,7 +33,11 @@ The Pipeline API supports most common NLP tasks-
 
 ## Pytorch / Tensorflow
 
+- Both can be used with hugging face
+
 ## Save / Load
+
+- Model and the tokenzier can be saved and loaded
 
 ## Model Hub
 

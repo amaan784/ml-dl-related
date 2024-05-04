@@ -142,9 +142,9 @@ def tokenizer_model_run():
     sa_classifier = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
     # apply the classifier with the data we want to test
-    sa_1_result = sa_classifier("I am happy to do this")
+    sa_result = sa_classifier("I am happy to do this")
 
-    print(sa_1_result) # will output something like [{'label': 'POSITIVE', 'score': 0.9998675584793091}] same as before
+    print(sa_result) # will output something like [{'label': 'POSITIVE', 'score': 0.9998675584793091}] same as before
 
     print("-----Tokenizing a sample input------")
     # converts text to a mathametical representation
@@ -197,35 +197,67 @@ def pytorch_model_run():
         labels = torch.argmax(predictions, dim=1)
         print(labels)
 
+def save_and_load_model():
+    """
+        Save and load the model
+    """
+    # same start code as previous tokenizer_model_run() 
+    model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+    model = AutoModelForSequenceClassification.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    sa_classifier_1 = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+    sa_result_1 = sa_classifier_1("I am very excited for this")
+    print("Run model before saving: ", sa_result_1)
+
+    # save the model
+    # save tokenzier and the model
+    save_directory = "C:\\Users\\dell\\saved_models"
+    tokenizer.save_pretrained(save_directory)
+    model.save_pretrained(save_directory)
+    print("Model Saved in the director: ", save_directory)
+    
+    # load the model to use 
+    # load tokenizer and model
+    tok = AutoTokenizer.from_pretrained(save_directory)
+    mod = AutoModelForSequenceClassification.from_pretrained(save_directory)
+    print("Model loaded from the directory: ", save_directory)
+
+    sa_classifier_2 = pipeline("sentiment-analysis", model=mod, tokenizer=tok)
+    sa_result_2 = sa_classifier_2("I am very excited for this")
+    print("Run model after saving and loading: ", sa_result_2)
+
 if __name__ == '__main__':
-#   print("---------Sentiment Analysis-------")
-#   sentiment_analysis()
+    print("---------Sentiment Analysis-------")
+    sentiment_analysis()
 
-#   print("\n---------Text Generation------")
-#   text_generation()
+    print("\n---------Text Generation------")
+    text_generation()
 
-#   print("\n---------Zero Shot Classification------")
-#   zero_shot_classification()
+    print("\n---------Zero Shot Classification------")
+    zero_shot_classification()
 
-#   print("\n---------Fill Mask------")
-#   fill_mask()
+    print("\n---------Fill Mask------")
+    fill_mask()
 
-#   print("\n---------Named Entity Recognition------")
-#   ner()
+    print("\n---------Named Entity Recognition------")
+    ner()
 
-#   print("\n---------Question Answering------")
-#   question_answering()
+    print("\n---------Question Answering------")
+    question_answering()
 
-#   print("\n---------Summarizer------")
-#   summarization()
+    print("\n---------Summarizer------")
+    summarization()
 
-#   print("\n---------Translation------")
-#   translation()
+    print("\n---------Translation------")
+    translation()
 
-    # print("\n---------Tokenizer Model------")
-    # tokenizer_model_run()
+    print("\n---------Tokenizer Model------")
+    tokenizer_model_run()
 
     print("\n--------Combine with Pytorch------")
     pytorch_model_run()
+
+    print("\n--------Save and Load the model-----")
+    save_and_load_model()
     
 
