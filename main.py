@@ -1,6 +1,8 @@
 # load hugging face transformers library / api
 from transformers import pipeline 
 
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
 def sentiment_analysis():
     """
         Classifies text as positive or negative

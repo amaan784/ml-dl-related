@@ -16,6 +16,16 @@ The Pipeline API supports most common NLP tasks-
 - Summarization
 - Translation
 
+## Model / Tokenizer
+
+## Pytorch / Tensorflow
+
+## Save / Load
+
+## Model Hub
+
+## Fine tune
+
 Sources-
 - [Getting Started With Hugging Face in 15 Minutes | Transformers, Pipeline, Tokenizer, Models](https://youtu.be/QEaBAZQCtwE)
 - https://huggingface.co/docs
