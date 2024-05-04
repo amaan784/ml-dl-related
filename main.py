@@ -1,4 +1,5 @@
 # load hugging face transformers library / api
+
 from transformers import pipeline 
 
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -121,22 +122,46 @@ def translation():
 
 def tokenizer_model_test():
     """
-        Toknizer Model 
+        Tokenizer and Model 
+
+        1) Combining the tokenizer with the sentiment analaysis task in the pipeline
+
+        2) Tokenizing a sample input
     """
 
     model_name = "distilbert-base-uncased-finetuned-sst-2-english"
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-    # create a pipeline object and input the task - sentiment analysis
+    # create a pipeline object and input the task - sentiment analysis 
+    # pass the model and tokenizer
     sa_classifier = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
     # apply the classifier with the data we want to test
     sa_1_result = sa_classifier("I am happy to do this")
 
-    print(sa_1_result) # will output something like [{'label': 'POSITIVE', 'score': 0.9998675584793091}]
+    print(sa_1_result) # will output something like [{'label': 'POSITIVE', 'score': 0.9998675584793091}] same as before
 
-    
+    print("-----Tokenizing a sample input------")
+    # converts text to a mathametical representation
+    # will return a dictionary containing ids (numbers) and attention mask (0 in the attention mask means the attention layer should ignore the token)
+    # 101 and 102 in the input id list represent the START and STOP of the input
+    sequence = "This is a very helpful framework for development"
+    result_tokenizer = tokenizer(sequence) 
+    print(result_tokenizer) # will output something like {'input_ids': [101, 2023, 2003, 1037, 2200, 14044, 7705, 2005, 2458, 102], 'attention_mask': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+
+    # will return the diffrent tokens from the input 
+    tokens = tokenizer.tokenize(sequence)
+    print(tokens) # will output something like ['this', 'is', 'a', 'very', 'helpful', 'framework', 'for', 'development']
+
+    # gives ids or the mathematical representation to the tokens
+    ids = tokenizer.convert_tokens_to_ids(tokens)
+    print(ids) # will output something like [2023, 2003, 1037, 2200, 14044, 7705, 2005, 2458]
+
+    # decodes and gives original string back
+    decoded_string = tokenizer.decode(ids)
+    print(decoded_string) # will output something like  this is a very helpful framework for development
+
 
 if __name__ == '__main__':
 #   print("---------Sentiment Analysis-------")
@@ -163,6 +188,6 @@ if __name__ == '__main__':
 #   print("\n---------Translation------")
 #   translation()
 
-
+    print("\n---------Tokenizer Model------")
     tokenizer_model_test()
 
