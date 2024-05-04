@@ -4,14 +4,14 @@
 
 The pipeline function returns an end to end object that performs an NLP task on one or more several texts.
 
-works in 3 steps -
+Works in 3 steps -
 1) pre-processing the text(s) -  applies tokenizer to the model
 2) feeds the pre processed text to the model 
 3) post processing - shows results
 
-workflow-
+Workflow-
 
---> pre-process --> Model --> post process-->
+--> pre-process --> Model --> post process -->
 
 The Pipeline API supports most common NLP tasks-
 - Text Classification
@@ -25,8 +25,8 @@ The Pipeline API supports most common NLP tasks-
 
 ## Tokenizer
 
-Transforms raw text to numbers
-Objective to find the most meaningful representation
+- Transforms raw text to numbers
+- Objective to find the most meaningful representation
 
 ## Pytorch / Tensorflow
 

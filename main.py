@@ -1,8 +1,11 @@
 # load hugging face transformers library / api
-
 from transformers import pipeline 
 
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+# importing pytorch
+import torch 
+import torch.nn.functional as F
 
 def sentiment_analysis():
     """
@@ -120,7 +123,7 @@ def translation():
     # will output something like 
     # [{'translation_text': "I'm a student."}]
 
-def tokenizer_model_test():
+def tokenizer_model_run():
     """
         Tokenizer and Model 
 
@@ -129,6 +132,7 @@ def tokenizer_model_test():
         2) Tokenizing a sample input
     """
 
+    # sample model and pre trained tokenizer
     model_name = "distilbert-base-uncased-finetuned-sst-2-english"
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -162,6 +166,36 @@ def tokenizer_model_test():
     decoded_string = tokenizer.decode(ids)
     print(decoded_string) # will output something like  this is a very helpful framework for development
 
+def pytorch_model_run():
+    """
+        Combining with Pytorch
+    """
+    # same start code as previous tokenizer_model_run() 
+    model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+    model = AutoModelForSequenceClassification.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    sa_classifier = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+    
+    # printing the results of the SA classifier for the given inputs
+    X_train = ["This is so cool !", "I don't know much about it", "Everything is great in here"]
+    result = sa_classifier(X_train)
+    print(result)
+
+    # call tokenizer on the training data
+    # tokenizer will print tensors
+    # return_tensors = pt will return tensors in pytorch format
+    batch = tokenizer(X_train, padding=True, truncation=True, max_length=512, return_tensors="pt")
+    print(batch)
+
+    # inference in pytorch
+    # unpack the batch and print output, predictions, labels
+    with torch.no_grad():
+        outputs = model(**batch)
+        print(outputs)
+        predictions = F.softmax(outputs.logits, dim=1)
+        print(predictions)  
+        labels = torch.argmax(predictions, dim=1)
+        print(labels)
 
 if __name__ == '__main__':
 #   print("---------Sentiment Analysis-------")
@@ -188,6 +222,10 @@ if __name__ == '__main__':
 #   print("\n---------Translation------")
 #   translation()
 
-    print("\n---------Tokenizer Model------")
-    tokenizer_model_test()
+    # print("\n---------Tokenizer Model------")
+    # tokenizer_model_run()
+
+    print("\n--------Combine with Pytorch------")
+    pytorch_model_run()
+    
 
