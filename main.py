@@ -119,29 +119,50 @@ def translation():
     # will output something like 
     # [{'translation_text': "I'm a student."}]
 
+def tokenizer_model_test():
+    """
+        Toknizer Model 
+    """
+
+    model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+    model = AutoModelForSequenceClassification.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+    # create a pipeline object and input the task - sentiment analysis
+    sa_classifier = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+
+    # apply the classifier with the data we want to test
+    sa_1_result = sa_classifier("I am happy to do this")
+
+    print(sa_1_result) # will output something like [{'label': 'POSITIVE', 'score': 0.9998675584793091}]
+
+    
 
 if __name__ == '__main__':
-  print("---------Sentiment Analysis-------")
-  sentiment_analysis()
+#   print("---------Sentiment Analysis-------")
+#   sentiment_analysis()
 
-  print("\n---------Text Generation------")
-  text_generation()
+#   print("\n---------Text Generation------")
+#   text_generation()
 
-  print("\n---------Zero Shot Classification------")
-  zero_shot_classification()
+#   print("\n---------Zero Shot Classification------")
+#   zero_shot_classification()
 
-  print("\n---------Fill Mask------")
-  fill_mask()
+#   print("\n---------Fill Mask------")
+#   fill_mask()
 
-  print("\n---------Named Entity Recognition------")
-  ner()
+#   print("\n---------Named Entity Recognition------")
+#   ner()
 
-  print("\n---------Question Answering------")
-  question_answering()
+#   print("\n---------Question Answering------")
+#   question_answering()
 
-  print("\n---------Summarizer------")
-  summarization()
+#   print("\n---------Summarizer------")
+#   summarization()
 
-  print("\n---------Translation------")
-  translation()
+#   print("\n---------Translation------")
+#   translation()
+
+
+    tokenizer_model_test()
 
