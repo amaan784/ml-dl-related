@@ -1,11 +1,15 @@
 # load hugging face transformers library / api
 from transformers import pipeline 
 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, TFAutoModelForSequenceClassification
 
 # importing pytorch
 import torch 
 import torch.nn.functional as F
+
+# import datasets library
+from datasets import load_dataset
+
 
 def sentiment_analysis():
     """
@@ -226,38 +230,53 @@ def save_and_load_model():
     sa_result_2 = sa_classifier_2("I am very excited for this")
     print("Run model after saving and loading: ", sa_result_2)
 
+def fine_tuning_model():
+    """
+        Fine tuning the model
+    """
+
+    raw_datasets = load_dataset("glue", "mrpc")
+    print(raw_datasets)
+
+    raw_train_dataset = raw_datasets["train"]
+    print(raw_train_dataset[0])
+
 if __name__ == '__main__':
-    print("---------Sentiment Analysis-------")
-    sentiment_analysis()
+    
+    # print("---------Sentiment Analysis-------")
+    # sentiment_analysis()
 
-    print("\n---------Text Generation------")
-    text_generation()
+    # print("\n---------Text Generation------")
+    # text_generation()
 
-    print("\n---------Zero Shot Classification------")
-    zero_shot_classification()
+    # print("\n---------Zero Shot Classification------")
+    # zero_shot_classification()
 
-    print("\n---------Fill Mask------")
-    fill_mask()
+    # print("\n---------Fill Mask------")
+    # fill_mask()
 
-    print("\n---------Named Entity Recognition------")
-    ner()
+    # print("\n---------Named Entity Recognition------")
+    # ner()
 
-    print("\n---------Question Answering------")
-    question_answering()
+    # print("\n---------Question Answering------")
+    # question_answering()
 
-    print("\n---------Summarizer------")
-    summarization()
+    # print("\n---------Summarizer------")
+    # summarization()
 
-    print("\n---------Translation------")
-    translation()
+    # print("\n---------Translation------")
+    # translation()
 
-    print("\n---------Tokenizer Model------")
-    tokenizer_model_run()
+    # print("\n---------Tokenizer Model------")
+    # tokenizer_model_run()
 
-    print("\n--------Combine with Pytorch------")
-    pytorch_model_run()
+    # print("\n--------Combine with Pytorch------")
+    # pytorch_model_run()
 
-    print("\n--------Save and Load the model-----")
-    save_and_load_model()
+    # print("\n--------Save and Load the model-----")
+    # save_and_load_model()
+
+    print("\n--------Fine tuning a model-----")
+    fine_tuning_model()
     
 

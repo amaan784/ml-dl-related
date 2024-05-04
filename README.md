@@ -41,7 +41,19 @@ The Pipeline API supports most common NLP tasks-
 
 ## Model Hub
 
+- Contains a large number of models serving different purposes
+
 ## Fine tune
+
+- Approach to transfer learning in which the parameters of a pre-trained model are trained on new data
+
+General Steps-
+1) Prepare datset
+2) Load pretrained tokenizer, call it with dataset and get encoding
+3) Build tensorflow / pytorch dataset with encodings
+4) Load pre trained model
+5) a) Load Trainer class and train int
+    b) native pytorch training loop / tensorflow code
 
 Sources-
 - [Getting Started With Hugging Face in 15 Minutes | Transformers, Pipeline, Tokenizer, Models](https://youtu.be/QEaBAZQCtwE)
