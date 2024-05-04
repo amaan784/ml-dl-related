@@ -55,7 +55,7 @@ General Steps-
 5) a) Load Trainer class and train int
     b) native pytorch training loop / tensorflow code
 
-Sources-
+## Sources-
 - [Getting Started With Hugging Face in 15 Minutes | Transformers, Pipeline, Tokenizer, Models](https://youtu.be/QEaBAZQCtwE)
 - https://huggingface.co/docs
 - https://huggingface.co/learn/nlp-course/chapter1/1
