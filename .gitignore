@@ -1,0 +1,6 @@
+# Ignore all .env files
+**/*.env
+
+# Do not ignore sample .env file
+!sample.env
+
